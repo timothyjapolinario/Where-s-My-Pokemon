@@ -5,3 +5,7 @@
 #menu {
   position: absolute;
 }
+
+#pokemon-map-wrapper {
+  position: relative;
+}

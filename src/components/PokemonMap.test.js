@@ -32,4 +32,8 @@ describe("Pokemon Map", () => {
 
     expect(screen.queryByText("Pichu")).toBeFalsy();
   });
+
+  // it("removes the name from the menu when the character is located",async ()=>{
+  //     jest.fn
+  // });
 });
