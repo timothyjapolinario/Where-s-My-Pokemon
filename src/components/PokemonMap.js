@@ -1,7 +1,9 @@
 import { useState } from "react";
-import pokemonMap from "../pokemon-maps/03.jpg";
+// import pokemonMap1 from "../pokemon-maps/01.jpg";
+// import pokemonMap2 from "../pokemon-maps/02.jpg";
+import pokemonMap3 from "../pokemon-maps/03.jpg";
 import "./PokemonMap.css";
-const PokemonMap = () => {
+const PokemonMap = ({ pokemonMapId }) => {
   const [menu, setMenu] = useState({
     isOpen: false,
     imageX: 0,
@@ -63,7 +65,7 @@ const PokemonMap = () => {
   return (
     <div data-testid="pokemon-map" onClick={openMenu} id="pokemon-map-wrapper">
       <div>{renderMenu()}</div>
-      <img src={pokemonMap} alt="pokemon-map" id="pokemon-map" />
+      <img src={pokemonMap3} alt="pokemon-map" id="pokemon-map" />
     </div>
   );
 };
