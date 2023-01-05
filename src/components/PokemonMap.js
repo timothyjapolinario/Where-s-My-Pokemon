@@ -1,6 +1,6 @@
 import { useState } from "react";
-// import pokemonMap1 from "../pokemon-maps/01.jpg";
-// import pokemonMap2 from "../pokemon-maps/02.jpg";
+import pokemonMap1 from "../pokemon-maps/01.jpg";
+import pokemonMap2 from "../pokemon-maps/02.jpg";
 import pokemonMap3 from "../pokemon-maps/03.jpg";
 import "./PokemonMap.css";
 const PokemonMap = ({ pokemonMapId }) => {
@@ -11,6 +11,37 @@ const PokemonMap = ({ pokemonMapId }) => {
     menuX: 0,
     menuY: 0,
   });
+
+  const [map, setMap] = useState({
+    map: null,
+    pokemonToFind: [],
+  });
+
+  const initMap = () => {
+    let selectedMap;
+    const localPokemonForMap3 = [
+      "Pichu",
+      "Persian",
+      "Magnemite",
+      "Espeon",
+      "Remoraid",
+    ];
+    if (pokemonMapId === 1) {
+      selectedMap = pokemonMap1;
+    } else if (pokemonMapId === 2) {
+      selectedMap = pokemonMap2;
+    } else if (pokemonMapId === 3) {
+      selectedMap = pokemonMap3;
+    } else {
+      console.log("Invalid Map ID");
+    }
+
+    setMap({
+      map: selectedMap,
+      pokemonToFind: localPokemonForMap3,
+    });
+  };
+
   const closeMenu = () => {
     setMenu({
       ...menu,

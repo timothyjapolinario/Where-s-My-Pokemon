@@ -1,7 +1,15 @@
 import "./App.css";
 import PokemonMap from "./PokemonMap";
 import { initializeApp } from "firebase/app";
-import { collection, getFirestore, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getFirestore,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import StartMenu from "./StartMenu";
+import { useEffect, useState } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyACsFbNW8Ga967uyHd3CPAhctq5rEyVr1U",
@@ -16,19 +24,49 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const getMaps = async () => {
-  const mapRef = collection(db, "map");
-  const mapSnapshot = await getDocs(mapRef);
-
-  mapSnapshot.forEach((doc) => {
-    console.log(doc.data());
-  });
-};
-getMaps();
 function App() {
+  const [mapState, setMaps] = useState({
+    mapList: [],
+  });
+
+  //When component is mounted, fetch data then setTheState
+  useEffect(() => {
+    const getMaps = async () => {
+      const mapRef = collection(db, "map");
+      const mapSnapshot = await getDocs(mapRef);
+      const maps = [];
+      mapSnapshot.forEach((doc) => {
+        maps.push(doc.data());
+      });
+
+      return maps;
+    };
+
+    const getPokemon = async (pokemonId) => {
+      const pokemonRef = doc(db, "pokemon", pokemonId);
+      const pokemonSnap = await getDoc(pokemonRef);
+      return pokemonSnap;
+    };
+
+    getMaps().then(async (result) => {
+      setMaps({ ...mapState, mapList: result });
+
+      for (const map of result) {
+        const newArr = [];
+
+        for (const pokemon of map.pokemons) {
+          await getPokemon(pokemon).then((pokemon) => {
+            newArr.push(pokemon.data());
+          });
+        }
+        map.pokemonObjs = newArr;
+      }
+    });
+  }, []);
+
   return (
     <div className="App">
-      <PokemonMap />
+      <StartMenu maps={mapState.mapList} />
     </div>
   );
 }
