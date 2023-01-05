@@ -1,24 +1,41 @@
-const StartMenu = ({ maps, poke }) => {
-  console.log(maps);
-  const MapCard = (mapName, mapImage, pokemonList) => {
+import { useState } from "react";
+import PreviewMenu from "./PreviewMenu";
+import "./StartMenu.css";
+const StartMenu = ({ maps }) => {
+  const MapCard = ({ mapName, mapImage, pokemonList }) => {
+    const [previewMenuState, setPreviewMenu] = useState(false);
+    const togglePrevMenu = () => {
+      setPreviewMenu(!previewMenuState);
+    };
     return (
-      <div>
-        <div>{mapName}</div>
+      <div className="map-preview">
+        <div className="map-preview-name">{mapName}</div>
         <div>
-          <img src={mapImage} alt="pokemonMap-preview" />
-        </div>
-        <div>
-          {pokemonList.map((pokemon) => {
-            return <div>{pokemon.name}</div>;
-          })}
+          <PreviewMenu
+            previewMenuState={previewMenuState}
+            togglePrevMenu={togglePrevMenu}
+            pokemonList={pokemonList}
+          />
+          <img
+            className="map-preview-image"
+            src={mapImage}
+            alt="pokemonMap-preview"
+            onClick={togglePrevMenu}
+          />
         </div>
       </div>
     );
   };
   return (
-    <div>
+    <div className="map-preview-list">
       {maps.map((map) => {
-        return MapCard(map.mapId, map.imageURL, map.pokemons);
+        return (
+          <MapCard
+            mapName={map.mapId}
+            mapImage={map.imageURL}
+            pokemonList={map.pokemonObjs}
+          />
+        );
       })}
     </div>
   );

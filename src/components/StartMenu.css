@@ -1,0 +1,32 @@
+.map-preview-image {
+  height: 82vh;
+}
+.map-preview {
+  position: relative;
+}
+.map-preview-list {
+  display: flex;
+  gap: 1vw;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.map-preview-menu {
+  position: absolute;
+  height: 82vh;
+  min-width: 100%;
+}
+
+.slide-up,
+.slide-down {
+  overflow: none;
+}
+.slide-up,
+.slide-down {
+  transform: translateY(-100%);
+  transition: 0.4s ease-in-out;
+}
+.slide-down {
+  transform: translateY(0);
+  background-color: rgba(5, 5, 107, 0.486);
+}
