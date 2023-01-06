@@ -27,46 +27,55 @@ const db = getFirestore(app);
 function App() {
   const [mapState, setMaps] = useState({
     mapList: [],
+    isLoading: true,
   });
 
   //When component is mounted, fetch data then setTheState
+
+  const getMaps = async () => {
+    const mapRef = collection(db, "map");
+    const mapSnapshot = await getDocs(mapRef);
+    const maps = [];
+    mapSnapshot.forEach((doc) => {
+      maps.push(doc.data());
+    });
+
+    return maps;
+  };
+
+  const getPokemon = async (pokemonId) => {
+    const pokemonRef = doc(db, "pokemon", pokemonId);
+    const pokemonSnap = await getDoc(pokemonRef);
+    return pokemonSnap;
+  };
+
   useEffect(() => {
-    const getMaps = async () => {
-      const mapRef = collection(db, "map");
-      const mapSnapshot = await getDocs(mapRef);
-      const maps = [];
-      mapSnapshot.forEach((doc) => {
-        maps.push(doc.data());
-      });
+    const fetchData = async () => {
+      const myMaps = await getMaps();
+      // const updatedMaps = myMaps.map(async (map) => {
 
-      return maps;
-    };
+      // });
 
-    const getPokemon = async (pokemonId) => {
-      const pokemonRef = doc(db, "pokemon", pokemonId);
-      const pokemonSnap = await getDoc(pokemonRef);
-      return pokemonSnap;
-    };
-
-    getMaps().then(async (result) => {
-      setMaps({ ...mapState, mapList: result });
-
-      for (const map of result) {
-        const newArr = [];
-
-        for (const pokemon of map.pokemons) {
-          await getPokemon(pokemon).then((pokemon) => {
-            newArr.push(pokemon.data());
+      for (const map of myMaps) {
+        map.pokemonObjs = [];
+        for (const pokemonId of map.pokemons) {
+          await getPokemon(pokemonId).then((result) => {
+            console.log(result.data());
+            map.pokemonObjs.push(result.data());
           });
         }
-        map.pokemonObjs = newArr;
       }
-    });
+      setMaps({
+        mapList: myMaps,
+        isLoading: false,
+      });
+    };
+    fetchData();
   }, []);
 
   return (
     <div className="App">
-      <StartMenu maps={mapState.mapList} />
+      {!mapState.isLoading && <StartMenu maps={mapState.mapList} />}
     </div>
   );
 }

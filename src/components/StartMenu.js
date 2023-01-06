@@ -1,34 +1,12 @@
-import { useState } from "react";
+import MapCard from "./MapCard";
 import PreviewMenu from "./PreviewMenu";
 import "./StartMenu.css";
 const StartMenu = ({ maps }) => {
-  const MapCard = ({ mapName, mapImage, pokemonList }) => {
-    const [previewMenuState, setPreviewMenu] = useState(false);
-    const togglePrevMenu = () => {
-      setPreviewMenu(!previewMenuState);
-    };
-    return (
-      <div className="map-preview">
-        <div className="map-preview-name">{mapName}</div>
-        <div>
-          <PreviewMenu
-            previewMenuState={previewMenuState}
-            togglePrevMenu={togglePrevMenu}
-            pokemonList={pokemonList}
-          />
-          <img
-            className="map-preview-image"
-            src={mapImage}
-            alt="pokemonMap-preview"
-            onClick={togglePrevMenu}
-          />
-        </div>
-      </div>
-    );
-  };
+  console.log("Render Start Menu");
   return (
     <div className="map-preview-list">
       {maps.map((map) => {
+        console.log(maps.pokemonObjs);
         return (
           <MapCard
             mapName={map.mapId}

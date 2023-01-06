@@ -1,4 +1,5 @@
 const PreviewMenu = ({ previewMenuState, togglePrevMenu, pokemonList }) => {
+  console.log(pokemonList);
   return (
     <div
       className={`map-preview-menu ${
@@ -6,9 +7,10 @@ const PreviewMenu = ({ previewMenuState, togglePrevMenu, pokemonList }) => {
       }`}
       onClick={togglePrevMenu}
     >
-      {pokemonList.map((pokemon) => {
-        return <div key={pokemon.name}>{pokemon.name}</div>;
-      })}
+      {pokemonList &&
+        pokemonList.map((pokemon) => {
+          return <div key={pokemon.name}>{pokemon.name}</div>;
+        })}
     </div>
   );
 };
