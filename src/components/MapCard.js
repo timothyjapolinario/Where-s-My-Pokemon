@@ -1,6 +1,6 @@
 import PreviewMenu from "./PreviewMenu";
 import { useState } from "react";
-const MapCard = ({ mapName, mapImage, pokemonList }) => {
+const MapCard = ({ mapId, mapImage, pokemonList }) => {
   const [previewMenuState, setPreviewMenu] = useState(false);
   const togglePrevMenu = () => {
     setPreviewMenu(!previewMenuState);
@@ -9,12 +9,13 @@ const MapCard = ({ mapName, mapImage, pokemonList }) => {
   console.log();
   return (
     <div className="map-preview">
-      <div className="map-preview-name">{mapName}</div>
+      <div className="map-preview-name">{mapId}</div>
       <div>
         <PreviewMenu
           previewMenuState={previewMenuState}
           togglePrevMenu={togglePrevMenu}
           pokemonList={pokemonList}
+          mapId={mapId}
         />
         <img
           className="map-preview-image"

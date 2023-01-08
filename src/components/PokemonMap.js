@@ -1,9 +1,18 @@
-import { useState } from "react";
-import pokemonMap1 from "../pokemon-maps/01.jpg";
-import pokemonMap2 from "../pokemon-maps/02.jpg";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import pokemonMap3 from "../pokemon-maps/03.jpg";
 import "./PokemonMap.css";
-const PokemonMap = ({ pokemonMapId }) => {
+import { db } from "../modules/AppFirebase";
+const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
+  const { mapId } = useParams();
   const [menu, setMenu] = useState({
     isOpen: false,
     imageX: 0,
@@ -11,37 +20,38 @@ const PokemonMap = ({ pokemonMapId }) => {
     menuX: 0,
     menuY: 0,
   });
-
   const [map, setMap] = useState({
-    map: null,
-    pokemonToFind: [],
+    imageUrl: "",
+    mapId: mapId,
+    pokemons: [],
   });
 
-  const initMap = () => {
-    let selectedMap;
-    const localPokemonForMap3 = [
-      "Pichu",
-      "Persian",
-      "Magnemite",
-      "Espeon",
-      "Remoraid",
-    ];
-    if (pokemonMapId === 1) {
-      selectedMap = pokemonMap1;
-    } else if (pokemonMapId === 2) {
-      selectedMap = pokemonMap2;
-    } else if (pokemonMapId === 3) {
-      selectedMap = pokemonMap3;
-    } else {
-      console.log("Invalid Map ID");
-    }
-
-    setMap({
-      map: selectedMap,
-      pokemonToFind: localPokemonForMap3,
+  const getMap = async () => {
+    let newMap;
+    const q = query(
+      collection(db, "map"),
+      where("mapId", "==", parseInt(mapId))
+    );
+    const qSnapshot = await getDocs(q);
+    qSnapshot.forEach((doc) => {
+      newMap = doc.data();
     });
-  };
 
+    return newMap;
+  };
+  useEffect(() => {
+    getMap().then((result) => {
+      console.log("mount", result);
+      setMap({
+        imageUrl: result.imageURL,
+        mapId: result.mapId,
+        pokemons: result.pokemons,
+      });
+    });
+  }, []);
+  useEffect(() => {
+    console.log(map);
+  }, [map]);
   const closeMenu = () => {
     setMenu({
       ...menu,
@@ -75,7 +85,10 @@ const PokemonMap = ({ pokemonMapId }) => {
           onDoubleClick={closeMenu}
           data-testid="menu"
         >
-          <div>Pichu</div>
+          {pokemonList &&
+            pokemonList.map((pokemon) => {
+              return <div>{pokemon}</div>;
+            })}
         </div>
       );
     }
@@ -96,7 +109,7 @@ const PokemonMap = ({ pokemonMapId }) => {
   return (
     <div data-testid="pokemon-map" onClick={openMenu} id="pokemon-map-wrapper">
       <div>{renderMenu()}</div>
-      <img src={pokemonMap3} alt="pokemon-map" id="pokemon-map" />
+      <img src={map.imageUrl} alt="pokemon-map" id="pokemon-map" />
     </div>
   );
 };

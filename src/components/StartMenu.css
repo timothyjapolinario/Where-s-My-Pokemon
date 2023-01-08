@@ -19,7 +19,7 @@
 
 .slide-up,
 .slide-down {
-  overflow: none;
+  overflow: hidden;
 }
 .slide-up,
 .slide-down {

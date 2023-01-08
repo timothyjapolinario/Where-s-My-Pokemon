@@ -1,6 +1,6 @@
 import "./App.css";
 import PokemonMap from "./PokemonMap";
-import { initializeApp } from "firebase/app";
+import { db, app } from "../modules/AppFirebase";
 import {
   collection,
   getFirestore,
@@ -10,27 +10,26 @@ import {
 } from "firebase/firestore";
 import StartMenu from "./StartMenu";
 import { useEffect, useState } from "react";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyACsFbNW8Ga967uyHd3CPAhctq5rEyVr1U",
-  authDomain: "where-s-my-pokemon.firebaseapp.com",
-  projectId: "where-s-my-pokemon",
-  storageBucket: "where-s-my-pokemon.appspot.com",
-  messagingSenderId: "338974024386",
-  appId: "1:338974024386:web:286b16dea12545bd8a915b",
-  measurementId: "G-PJLNYKWV9D",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const [mapState, setMaps] = useState({
     mapList: [],
-    isLoading: true,
   });
 
-  //When component is mounted, fetch data then setTheState
+  const [loading, setLoading] = useState(false);
+  const [currentMap, setCurrentMap] = useState({
+    pokemonList: [],
+    imageURL: "",
+  });
+
+  const selectMap = (pokemonList, imageURL) => {
+    console.log("SELECTING MAP!");
+    setCurrentMap({
+      pokemonList: pokemonList,
+      imageURL: imageURL,
+    });
+  };
 
   const getMaps = async () => {
     const mapRef = collection(db, "map");
@@ -48,14 +47,10 @@ function App() {
     const pokemonSnap = await getDoc(pokemonRef);
     return pokemonSnap;
   };
-
+  //When component is mounted, fetch data then setTheState
   useEffect(() => {
     const fetchData = async () => {
       const myMaps = await getMaps();
-      // const updatedMaps = myMaps.map(async (map) => {
-
-      // });
-
       for (const map of myMaps) {
         map.pokemonObjs = [];
         for (const pokemonId of map.pokemons) {
@@ -67,7 +62,6 @@ function App() {
       }
       setMaps({
         mapList: myMaps,
-        isLoading: false,
       });
     };
     fetchData();
@@ -75,7 +69,25 @@ function App() {
 
   return (
     <div className="App">
-      {!mapState.isLoading && <StartMenu maps={mapState.mapList} />}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <StartMenu maps={mapState.mapList} selectMap={selectMap} />
+            }
+          />
+          <Route
+            path="/game/:mapId"
+            element={
+              <PokemonMap
+                pokemonMapUrl={currentMap.imageURL}
+                pokemonList={currentMap.pokemonList}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

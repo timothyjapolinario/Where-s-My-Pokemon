@@ -1,17 +1,16 @@
 import MapCard from "./MapCard";
-import PreviewMenu from "./PreviewMenu";
 import "./StartMenu.css";
-const StartMenu = ({ maps }) => {
-  console.log("Render Start Menu");
+const StartMenu = ({ maps, selectMap }) => {
   return (
     <div className="map-preview-list">
       {maps.map((map) => {
         console.log(maps.pokemonObjs);
         return (
           <MapCard
-            mapName={map.mapId}
+            mapId={map.mapId}
             mapImage={map.imageURL}
             pokemonList={map.pokemonObjs}
+            selectMap={selectMap}
           />
         );
       })}
