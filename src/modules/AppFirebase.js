@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyACsFbNW8Ga967uyHd3CPAhctq5rEyVr1U",
@@ -13,5 +13,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-export { db, app };
+const getPokemon = async (pokemonId) => {
+  const pokemonRef = doc(db, "pokemon", pokemonId);
+  const pokemonSnap = await getDoc(pokemonRef);
+  return pokemonSnap;
+};
+export { db, app, getPokemon };

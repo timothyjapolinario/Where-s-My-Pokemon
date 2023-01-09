@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import pokemonMap3 from "../pokemon-maps/03.jpg";
 import "./PokemonMap.css";
-import { db } from "../modules/AppFirebase";
+import { db, getPokemon } from "../modules/AppFirebase";
 const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
   const { mapId } = useParams();
   const [menu, setMenu] = useState({
@@ -24,6 +24,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     imageUrl: "",
     mapId: mapId,
     pokemons: [],
+    pokemonObjs: [],
   });
 
   const getMap = async () => {
@@ -40,12 +41,21 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     return newMap;
   };
   useEffect(() => {
-    getMap().then((result) => {
+    getMap().then(async (result) => {
       console.log("mount", result);
+      const pokemonObjs = [];
+
+      for (const pokeId of result.pokemons) {
+        await getPokemon(pokeId).then((result) => {
+          pokemonObjs.push(result.data());
+        });
+      }
+
       setMap({
         imageUrl: result.imageURL,
         mapId: result.mapId,
         pokemons: result.pokemons,
+        pokemonObjs: pokemonObjs,
       });
     });
   }, []);
@@ -77,6 +87,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     return [px, py];
   };
   const renderMenu = () => {
+    console.log(map.pokemonObjs);
     if (menu.isOpen) {
       return (
         <div
@@ -85,9 +96,9 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
           onDoubleClick={closeMenu}
           data-testid="menu"
         >
-          {pokemonList &&
-            pokemonList.map((pokemon) => {
-              return <div>{pokemon}</div>;
+          {map.pokemonObjs &&
+            map.pokemonObjs.map((pokemon) => {
+              return <div>{pokemon.name}</div>;
             })}
         </div>
       );

@@ -11,7 +11,7 @@ import {
 import StartMenu from "./StartMenu";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { getPokemon } from "../modules/AppFirebase";
 function App() {
   const [mapState, setMaps] = useState({
     mapList: [],
@@ -42,11 +42,6 @@ function App() {
     return maps;
   };
 
-  const getPokemon = async (pokemonId) => {
-    const pokemonRef = doc(db, "pokemon", pokemonId);
-    const pokemonSnap = await getDoc(pokemonRef);
-    return pokemonSnap;
-  };
   //When component is mounted, fetch data then setTheState
   useEffect(() => {
     const fetchData = async () => {
