@@ -4,8 +4,45 @@
 
 #menu {
   position: absolute;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
+#menu-circle-mark {
+  border: 5px solid orange;
+  border-radius: 100%;
+  width: 12vw;
+  height: 12vw;
+}
+.menu-pokemon-img {
+  min-height: 10vw;
+  min-width: 10vw;
+}
+.menu-pokemon-name {
+  font-size: 2vw;
+}
 #pokemon-map-wrapper {
   position: relative;
+  overflow: hidden;
+}
+#menu-pokemon-list {
+  height: 18vw;
+  width: 12vw;
+  display: flex;
+  flex-direction: column;
+  color: yellow;
+  background-color: rgb(0, 36, 71);
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid red;
+  z-index: 99999;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.menu-pokemon-img {
+  width: 60px;
+  height: 60px;
 }

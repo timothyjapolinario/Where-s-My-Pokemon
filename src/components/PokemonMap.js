@@ -42,7 +42,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
   };
   useEffect(() => {
     getMap().then(async (result) => {
-      console.log("mount", result);
       const pokemonObjs = [];
 
       for (const pokeId of result.pokemons) {
@@ -59,9 +58,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
       });
     });
   }, []);
-  useEffect(() => {
-    console.log(map);
-  }, [map]);
   const closeMenu = () => {
     setMenu({
       ...menu,
@@ -87,7 +83,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     return [px, py];
   };
   const renderMenu = () => {
-    console.log(map.pokemonObjs);
     if (menu.isOpen) {
       return (
         <div
@@ -96,10 +91,23 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
           onDoubleClick={closeMenu}
           data-testid="menu"
         >
-          {map.pokemonObjs &&
-            map.pokemonObjs.map((pokemon) => {
-              return <div>{pokemon.name}</div>;
-            })}
+          <div id="menu-circle-mark">x</div>
+          <div id="menu-pokemon-list">
+            {map.pokemonObjs &&
+              map.pokemonObjs.map((pokemon) => {
+                return (
+                  <div>
+                    <div className="menu-pokemon-name"> {pokemon.name}</div>
+
+                    <img
+                      src={pokemon.imageUrl}
+                      alt="pokeimg"
+                      className="menu-pokemon-img"
+                    />
+                  </div>
+                );
+              })}
+          </div>
         </div>
       );
     }
@@ -107,13 +115,14 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
 
   const openMenu = (event) => {
     const [px, py] = getNaturalHeightAndWidth(event);
+    console.log(event);
     setMenu({
       ...menu,
       isOpen: true,
       imageX: px,
       imageY: py,
-      menuX: event.pageX,
-      menuY: event.pageY,
+      menuX: event.pageX - window.innerWidth / 15,
+      menuY: event.pageY - window.innerWidth / 15,
     });
   };
 
