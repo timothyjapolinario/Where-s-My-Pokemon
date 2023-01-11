@@ -1,14 +1,6 @@
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import pokemonMap3 from "../pokemon-maps/03.jpg";
 import "./PokemonMap.css";
 import { db, getPokemon } from "../modules/AppFirebase";
 const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
@@ -76,10 +68,10 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     const ch = imgElem.clientHeight;
     const iw = imgElem.naturalWidth;
     const ih = imgElem.naturalHeight;
-    console.log(`event : ${event.pageX}, ${event.pageY}`);
+    //console.log(`event : ${event.pageX}, ${event.pageY}`);
     const px = (x / cw) * iw;
     const py = (y / ch) * ih;
-    console.log(`pixel : ${px}, ${py}`);
+    //console.log(`pixel : ${px}, ${py}`);
     return [px, py];
   };
   const renderMenu = () => {
@@ -91,31 +83,43 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
           onDoubleClick={closeMenu}
           data-testid="menu"
         >
-          <div id="menu-circle-mark">x</div>
-          <div id="menu-pokemon-list">
-            {map.pokemonObjs &&
-              map.pokemonObjs.map((pokemon) => {
-                return (
-                  <div>
-                    <div className="menu-pokemon-name"> {pokemon.name}</div>
-
-                    <img
-                      src={pokemon.imageUrl}
-                      alt="pokeimg"
-                      className="menu-pokemon-img"
-                    />
-                  </div>
-                );
-              })}
+          <div id="menu-circle-mark">
+            x
+            <div
+              id="menu-pokemon-list"
+              style={{ position: "absolute", left: `${menu.listLocation}` }}
+            >
+              {map.pokemonObjs &&
+                map.pokemonObjs.map((pokemon) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        checkLocation(pokemon.x, pokemon.y);
+                      }}
+                    >
+                      <div className="menu-pokemon-name"> {pokemon.name}</div>
+                      <img
+                        src={pokemon.imageUrl}
+                        alt="pokeimg"
+                        className="menu-pokemon-img"
+                      />
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
       );
     }
   };
 
+  const checkLocation = (x, y) => {
+    console.log("pokemon: ", x, y);
+  };
   const openMenu = (event) => {
+    const imgElem = document.querySelector("#pokemon-map");
     const [px, py] = getNaturalHeightAndWidth(event);
-    console.log(event);
+    const isOnRight = imgElem.naturalWidth / 2 > px;
     setMenu({
       ...menu,
       isOpen: true,
@@ -123,13 +127,19 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
       imageY: py,
       menuX: event.pageX - window.innerWidth / 15,
       menuY: event.pageY - window.innerWidth / 15,
+      listLocation: isOnRight ? "15vw" : "-15vw",
     });
   };
 
   return (
-    <div data-testid="pokemon-map" onClick={openMenu} id="pokemon-map-wrapper">
+    <div data-testid="pokemon-map" id="pokemon-map-wrapper">
+      <img
+        src={map.imageUrl}
+        alt="pokemon-map"
+        id="pokemon-map"
+        onClick={openMenu}
+      />
       <div>{renderMenu()}</div>
-      <img src={map.imageUrl} alt="pokemon-map" id="pokemon-map" />
     </div>
   );
 };
