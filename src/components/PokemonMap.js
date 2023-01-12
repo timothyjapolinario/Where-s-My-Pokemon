@@ -97,7 +97,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
                   return (
                     <div
                       onClick={() => {
-                        checkLocation(pokemon.x, pokemon.y);
+                        checkLocation(pokemon.x, pokemon.y, pokemon.name);
                       }}
                     >
                       <div className="menu-pokemon-name"> {pokemon.name}</div>
@@ -116,14 +116,20 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     }
   };
 
-  const checkLocation = (x, y) => {
+  const checkLocation = (x, y, pokemonName) => {
     const maxX = menu.circleMarkRadius + menu.imageX;
     const minX = menu.imageX - menu.circleMarkRadius;
     const maxY = menu.circleMarkRadius + menu.imageY;
     const minY = menu.imageY - menu.circleMarkRadius;
     console.log(`${x} > ${minX} && ${x} < ${maxX}`);
     if (x > minX && x < maxX && y > minY && y < maxY) {
-      console.log("Pokemon Found!");
+      const newPokemonObjs = map.pokemonObjs.filter((poke) => {
+        return poke.name !== pokemonName;
+      });
+      setMap({
+        ...map,
+        pokemonObjs: newPokemonObjs,
+      });
     } else {
       console.log("Outside circle!");
     }
