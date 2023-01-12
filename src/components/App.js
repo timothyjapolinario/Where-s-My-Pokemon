@@ -1,13 +1,7 @@
 import "./App.css";
 import PokemonMap from "./PokemonMap";
 import { db, app } from "../modules/AppFirebase";
-import {
-  collection,
-  getFirestore,
-  getDocs,
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import StartMenu from "./StartMenu";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -17,7 +11,7 @@ function App() {
     mapList: [],
   });
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentMap, setCurrentMap] = useState({
     pokemonList: [],
     imageURL: "",
@@ -56,6 +50,7 @@ function App() {
       setMaps({
         mapList: myMaps,
       });
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -67,7 +62,11 @@ function App() {
           <Route
             path="/"
             element={
-              <StartMenu maps={mapState.mapList} selectMap={selectMap} />
+              <StartMenu
+                maps={mapState.mapList}
+                selectMap={selectMap}
+                isLoading={loading}
+              />
             }
           />
           <Route

@@ -3,8 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PokemonMap.css";
 import { db, getPokemon } from "../modules/AppFirebase";
+import LoadingScreen from "./LoadingScreen";
 const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
   const { mapId } = useParams();
+  const [isLoading, setLoading] = useState(true);
   const [menu, setMenu] = useState({
     isOpen: false,
     imageX: 0,
@@ -48,6 +50,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
         pokemons: result.pokemons,
         pokemonObjs: pokemonObjs,
       });
+      setLoading(false);
     });
   }, []);
   const closeMenu = () => {
@@ -150,17 +153,21 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     });
   };
 
-  return (
-    <div data-testid="pokemon-map" id="pokemon-map-wrapper">
-      <img
-        src={map.imageUrl}
-        alt="pokemon-map"
-        id="pokemon-map"
-        onClick={openMenu}
-      />
-      <div>{renderMenu()}</div>
-    </div>
-  );
+  if (isLoading) {
+    return <LoadingScreen />;
+  } else {
+    return (
+      <div data-testid="pokemon-map" id="pokemon-map-wrapper">
+        <img
+          src={map.imageUrl}
+          alt="pokemon-map"
+          id="pokemon-map"
+          onClick={openMenu}
+        />
+        <div>{renderMenu()}</div>
+      </div>
+    );
+  }
 };
 
 export default PokemonMap;

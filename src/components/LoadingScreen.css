@@ -1,0 +1,41 @@
+#loading-screen {
+  background-color: rgb(1, 1, 167);
+  height: 100vh;
+  position: relative;
+}
+
+#loading-upper {
+  height: 45vh;
+  background-color: red;
+}
+#loading-middle {
+  height: 10vh;
+  background-color: black;
+  position: relative;
+}
+
+#loading-lower {
+  height: 45vh;
+  background-color: white;
+}
+#circle-pokeball {
+  background-color: white;
+  border-radius: 100%;
+  height: 40vh;
+  width: 30vw;
+  border: 3vw solid black;
+
+  position: absolute;
+  z-index: 9999;
+  top: 25%;
+  transform: translate(90%, 0);
+}
+#running-pikachu {
+  position: absolute;
+  z-index: 99999;
+  top: 25%;
+  transform: translate(-50%, 0);
+
+  height: 35vh;
+  width: 30vw;
+}
