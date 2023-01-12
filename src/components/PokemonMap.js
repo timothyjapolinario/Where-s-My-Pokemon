@@ -68,10 +68,9 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     const ch = imgElem.clientHeight;
     const iw = imgElem.naturalWidth;
     const ih = imgElem.naturalHeight;
-    //console.log(`event : ${event.pageX}, ${event.pageY}`);
     const px = (x / cw) * iw;
     const py = (y / ch) * ih;
-    //console.log(`pixel : ${px}, ${py}`);
+    console.log(`pixel : ${px}, ${py}`);
     return [px, py];
   };
   const renderMenu = () => {
@@ -87,7 +86,11 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
             x
             <div
               id="menu-pokemon-list"
-              style={{ position: "absolute", left: `${menu.listLocation}` }}
+              style={{
+                position: "absolute",
+                left: `${menu.listLocation}`,
+                top: "-2vh",
+              }}
             >
               {map.pokemonObjs &&
                 map.pokemonObjs.map((pokemon) => {
@@ -114,7 +117,16 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
   };
 
   const checkLocation = (x, y) => {
-    console.log("pokemon: ", x, y);
+    const maxX = menu.circleMarkRadius + menu.imageX;
+    const minX = menu.imageX - menu.circleMarkRadius;
+    const maxY = menu.circleMarkRadius + menu.imageY;
+    const minY = menu.imageY - menu.circleMarkRadius;
+    console.log(`${x} > ${minX} && ${x} < ${maxX}`);
+    if (x > minX && x < maxX && y > minY && y < maxY) {
+      console.log("Pokemon Found!");
+    } else {
+      console.log("Outside circle!");
+    }
   };
   const openMenu = (event) => {
     const imgElem = document.querySelector("#pokemon-map");
@@ -128,6 +140,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
       menuX: event.pageX - window.innerWidth / 15,
       menuY: event.pageY - window.innerWidth / 15,
       listLocation: isOnRight ? "15vw" : "-15vw",
+      circleMarkRadius: 60,
     });
   };
 

@@ -24,7 +24,6 @@ function App() {
   });
 
   const selectMap = (pokemonList, imageURL) => {
-    console.log("SELECTING MAP!");
     setCurrentMap({
       pokemonList: pokemonList,
       imageURL: imageURL,
@@ -50,7 +49,6 @@ function App() {
         map.pokemonObjs = [];
         for (const pokemonId of map.pokemons) {
           await getPokemon(pokemonId).then((result) => {
-            console.log(result.data());
             map.pokemonObjs.push(result.data());
           });
         }
