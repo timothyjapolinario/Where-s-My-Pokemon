@@ -9,17 +9,22 @@ const PreviewMenu = ({
   return (
     <div
       className={`map-preview-menu ${
-        !previewMenuState ? "slide-up" : "slide-down"
+        !previewMenuState ? "scale-zero" : "scale-full"
       }`}
       onClick={togglePrevMenu}
     >
       {pokemonList &&
         pokemonList.map((pokemon) => {
-          return <div key={pokemon.name}>{pokemon.name}</div>;
+          return (
+            <div key={pokemon.name} className="preview-pokemon-info">
+              <div>{pokemon.name}</div>
+              <img src={pokemon.imageUrl} id="preview-pokemon-image" />
+            </div>
+          );
         })}
-      <Link to={`game/${mapId}`}>
-        <div>Select Map!</div>
-      </Link>
+      <div className="select-map-button">
+        <Link to={`game/${mapId}`}>Select Map!</Link>
+      </div>
     </div>
   );
 };
