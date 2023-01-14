@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "./PokemonMap.css";
 import { db, getPokemon } from "../modules/AppFirebase";
 import LoadingScreen from "./LoadingScreen";
+import Timer from "./Timer";
 const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
   const { mapId } = useParams();
   const [isLoading, setLoading] = useState(true);
@@ -95,6 +96,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
                 top: `${menu.pokemonListPosTop}`,
               }}
             >
+              <Timer />
               {map.pokemonObjs &&
                 map.pokemonObjs.map((pokemon) => {
                   return (
@@ -149,7 +151,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
       imageX: px,
       imageY: py,
       menuX: event.pageX - window.innerWidth / 15,
-      menuY: event.pageY - window.innerWidth / 15,
+      menuY: event.pageY - 100 - window.innerWidth / 15,
       listLocation: isOnRight ? "15vw" : "-15vw",
       circleMarkRadius: 60,
       pokemonListPosTop: isListOverFlow ? "-23vh" : "-2vh",
