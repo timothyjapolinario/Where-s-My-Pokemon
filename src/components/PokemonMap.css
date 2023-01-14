@@ -19,6 +19,7 @@
 .menu-pokemon-img {
   min-height: 10vw;
   min-width: 10vw;
+  cursor: grab;
 }
 .menu-pokemon-name {
   font-size: 2vw;

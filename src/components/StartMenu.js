@@ -1,7 +1,8 @@
 import LoadingScreen from "./LoadingScreen";
 import MapCard from "./MapCard";
 import "./StartMenu.css";
-const StartMenu = ({ maps, selectMap, isLoading }) => {
+import User from "./User";
+const StartMenu = ({ maps, selectMap, isLoading, user, submitUser }) => {
   if (isLoading) {
     return <LoadingScreen />;
   } else {
@@ -17,6 +18,7 @@ const StartMenu = ({ maps, selectMap, isLoading }) => {
             />
           );
         })}
+        {!user.name && <User submitUser={submitUser} />}
       </div>
     );
   }

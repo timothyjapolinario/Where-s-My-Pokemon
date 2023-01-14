@@ -1,7 +1,7 @@
 import "./App.css";
 import PokemonMap from "./PokemonMap";
 import { db, app } from "../modules/AppFirebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import StartMenu from "./StartMenu";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -10,7 +10,9 @@ function App() {
   const [mapState, setMaps] = useState({
     mapList: [],
   });
-
+  const [user, setUser] = useState({
+    name: "",
+  });
   const [loading, setLoading] = useState(true);
   const [currentMap, setCurrentMap] = useState({
     pokemonList: [],
@@ -55,6 +57,14 @@ function App() {
     fetchData();
   }, []);
 
+  const submitUser = async (newUserName) => {
+    const userRef = doc(db, "users", newUserName.toLowerCase());
+    const newUser = {
+      name: newUserName,
+    };
+    await setDoc(userRef, newUser);
+    setUser(newUser);
+  };
   return (
     <div className="App">
       <BrowserRouter>
@@ -66,6 +76,8 @@ function App() {
                 maps={mapState.mapList}
                 selectMap={selectMap}
                 isLoading={loading}
+                user={user}
+                submitUser={submitUser}
               />
             }
           />

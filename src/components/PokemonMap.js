@@ -87,7 +87,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
           data-testid="menu"
         >
           <div id="menu-circle-mark">
-            x
             <div
               id="menu-pokemon-list"
               style={{
