@@ -59,29 +59,32 @@ function App() {
   }, []);
 
   const submitUser = async (newUserName) => {
-    let user;
+    let newUser;
     const userRef = doc(db, "users", newUserName.toLowerCase());
     if (userRef) {
-      user = (await getDoc(userRef)).data();
-      console.log(user);
+      newUser = (await getDoc(userRef)).data();
+      console.log(newUser);
     } else {
-      user = {
+      newUser = {
         name: newUserName,
       };
-      await setDoc(userRef, user);
+      await setDoc(userRef, newUser);
     }
-    setUser(user);
+    setUser(newUser);
   };
   const updateUser = async (minutes, seconds, mapId) => {
-    const map = "map" + mapId + "Time";
-    const userRef = doc(db, "users", user.name.toLowerCase());
-    const updatedUser = {
-      ...user,
-      [map]: `${minutes} : ${seconds}`,
-    };
-    await setDoc(userRef, updatedUser);
-    setUser(updatedUser);
+    if (user.name !== "") {
+      const map = "map" + mapId + "Time";
+      const userRef = doc(db, "users", user.name.toLowerCase());
+      const updatedUser = {
+        ...user,
+        [map]: `${minutes} : ${seconds}`,
+      };
+      await setDoc(userRef, updatedUser);
+      setUser(updatedUser);
+    }
   };
+
   return (
     <div className="App">
       <Header />
@@ -106,6 +109,7 @@ function App() {
                 pokemonMapUrl={currentMap.imageURL}
                 pokemonList={currentMap.pokemonList}
                 updateUser={updateUser}
+                user={user}
               />
             }
           />

@@ -5,7 +5,7 @@ import "./PokemonMap.css";
 import { db, getPokemon } from "../modules/AppFirebase";
 import LoadingScreen from "./LoadingScreen";
 import Timer from "./Timer";
-const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser }) => {
+const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   const { mapId } = useParams();
   const [isLoading, setLoading] = useState(true);
   const [menu, setMenu] = useState({
@@ -28,7 +28,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser }) => {
   //timer
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!map.isGameover) {
+      if (!map.isGameover && user.name !== "") {
         if (seconds < 60) {
           setSeconds(seconds + 1);
           console.log("timer");
@@ -64,6 +64,10 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser }) => {
       setMap({
         ...map,
         isGameover: true,
+      });
+      setMenu({
+        ...menu,
+        isOpen: false,
       });
     }
     updateUser(minutes, seconds, map.mapId);
@@ -193,7 +197,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser }) => {
   };
   if (isLoading) {
     return <LoadingScreen />;
-  } else {
+  } else if (user.name) {
     return (
       <div data-testid="pokemon-map" id="pokemon-map-wrapper">
         <img
