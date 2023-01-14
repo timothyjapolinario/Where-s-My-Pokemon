@@ -1,6 +1,11 @@
+@font-face {
+  font-family: Fredoka;
+  src: url(../assets/FredokaOne-Regular.ttf)
+    url(../assets/FredokaOne-Regular.ttf);
+}
+
 .App {
   text-align: center;
-  background-color: rgb(209, 211, 73);
   min-height: 100vh;
 }
 

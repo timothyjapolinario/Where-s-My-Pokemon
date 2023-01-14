@@ -7,7 +7,6 @@ const MapCard = ({ mapId, mapImage, pokemonList }) => {
   };
   return (
     <div className="map-preview">
-      <div className="map-preview-name">{mapId}</div>
       <div>
         <PreviewMenu
           previewMenuState={previewMenuState}

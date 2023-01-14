@@ -31,6 +31,7 @@
 #menu-pokemon-list {
   height: 18vw;
   width: 12vw;
+  min-width: 95px;
   display: flex;
   flex-direction: column;
   color: yellow;

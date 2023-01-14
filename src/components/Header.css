@@ -1,4 +1,8 @@
 #Header {
   min-height: 100px;
   background-color: blue;
+  font-size: 60px;
+  color: yellow;
+  font-family: Fredoka;
+  font-weight: bold;
 }
