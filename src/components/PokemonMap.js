@@ -73,7 +73,8 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     const ih = imgElem.naturalHeight;
     const px = (x / cw) * iw;
     const py = (y / ch) * ih;
-    console.log(`pixel : ${px}, ${py}`);
+    //console.log(`pixel : ${px}, ${py}`);
+    //console.log(ih, py);
     return [px, py];
   };
   const renderMenu = () => {
@@ -92,7 +93,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
               style={{
                 position: "absolute",
                 left: `${menu.listLocation}`,
-                top: "-2vh",
+                top: `${menu.pokemonListPosTop}`,
               }}
             >
               {map.pokemonObjs &&
@@ -141,6 +142,8 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     const imgElem = document.querySelector("#pokemon-map");
     const [px, py] = getNaturalHeightAndWidth(event);
     const isOnRight = imgElem.naturalWidth / 2 > px;
+    const isListOverFlow =
+      imgElem.naturalHeight - imgElem.naturalHeight * 0.08 < py;
     setMenu({
       ...menu,
       isOpen: true,
@@ -150,6 +153,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
       menuY: event.pageY - window.innerWidth / 15,
       listLocation: isOnRight ? "15vw" : "-15vw",
       circleMarkRadius: 60,
+      pokemonListPosTop: isListOverFlow ? "-23vh" : "-2vh",
     });
   };
 
