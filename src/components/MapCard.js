@@ -5,8 +5,6 @@ const MapCard = ({ mapId, mapImage, pokemonList }) => {
   const togglePrevMenu = () => {
     setPreviewMenu(!previewMenuState);
   };
-  console.log("Render Map Card");
-  console.log();
   return (
     <div className="map-preview">
       <div className="map-preview-name">{mapId}</div>

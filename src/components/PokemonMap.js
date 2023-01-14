@@ -5,6 +5,7 @@ import "./PokemonMap.css";
 import { db, getPokemon } from "../modules/AppFirebase";
 import LoadingScreen from "./LoadingScreen";
 import Timer from "./Timer";
+import EndScreen from "./EndScreen";
 const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   const { mapId } = useParams();
   const [isLoading, setLoading] = useState(true);
@@ -197,7 +198,21 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   };
   if (isLoading) {
     return <LoadingScreen />;
-  } else if (user.name) {
+  } else if (user.name === "") {
+    return (
+      <EndScreen msg="Uh-oh! You forgot to set a user. Please go back to menu." />
+    );
+  } else if (map.isGameover) {
+    const minutesString =
+      minutes.toString().length === 1 ? "0" + minutes : minutes;
+    const secondsString =
+      seconds.toString().length === 1 ? "0" + seconds : seconds;
+    return (
+      <EndScreen
+        msg={`Game is over! Your time is ${minutesString}:${secondsString}`}
+      />
+    );
+  } else {
     return (
       <div data-testid="pokemon-map" id="pokemon-map-wrapper">
         <img
