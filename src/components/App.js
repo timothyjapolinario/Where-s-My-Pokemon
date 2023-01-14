@@ -6,6 +6,7 @@ import StartMenu from "./StartMenu";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getPokemon } from "../modules/AppFirebase";
+import Header from "./Header";
 function App() {
   const [mapState, setMaps] = useState({
     mapList: [],
@@ -58,15 +59,32 @@ function App() {
   }, []);
 
   const submitUser = async (newUserName) => {
+    let user;
     const userRef = doc(db, "users", newUserName.toLowerCase());
-    const newUser = {
-      name: newUserName,
+    if (userRef) {
+      user = (await getDoc(userRef)).data();
+      console.log(user);
+    } else {
+      user = {
+        name: newUserName,
+      };
+      await setDoc(userRef, user);
+    }
+    setUser(user);
+  };
+  const updateUser = async (minutes, seconds, mapId) => {
+    const map = "map" + mapId + "Time";
+    const userRef = doc(db, "users", user.name.toLowerCase());
+    const updatedUser = {
+      ...user,
+      [map]: `${minutes} : ${seconds}`,
     };
-    await setDoc(userRef, newUser);
-    setUser(newUser);
+    await setDoc(userRef, updatedUser);
+    setUser(updatedUser);
   };
   return (
     <div className="App">
+      <Header />
       <BrowserRouter>
         <Routes>
           <Route
@@ -87,6 +105,7 @@ function App() {
               <PokemonMap
                 pokemonMapUrl={currentMap.imageURL}
                 pokemonList={currentMap.pokemonList}
+                updateUser={updateUser}
               />
             }
           />

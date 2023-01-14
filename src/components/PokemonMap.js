@@ -1,15 +1,15 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PokemonMap.css";
 import { db, getPokemon } from "../modules/AppFirebase";
 import LoadingScreen from "./LoadingScreen";
 import Timer from "./Timer";
-const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
+const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser }) => {
   const { mapId } = useParams();
   const [isLoading, setLoading] = useState(true);
   const [menu, setMenu] = useState({
-    isOpen: false,
+    isOpen: true,
     imageX: 0,
     imageY: 0,
     menuX: 0,
@@ -20,7 +20,29 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     mapId: mapId,
     pokemons: [],
     pokemonObjs: [],
+    isGameover: false,
   });
+
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  //timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!map.isGameover) {
+        if (seconds < 60) {
+          setSeconds(seconds + 1);
+          console.log("timer");
+        } else {
+          setSeconds(0);
+          setMinutes(minutes + 1);
+        }
+      }
+    }, 1000);
+    if (map.isGameover) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [seconds, map.isGameover]);
 
   const getMap = async () => {
     let newMap;
@@ -35,6 +57,18 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
 
     return newMap;
   };
+
+  //When game is over
+  useEffect(() => {
+    if (map.pokemonObjs.length === 0) {
+      setMap({
+        ...map,
+        isGameover: true,
+      });
+    }
+    updateUser(minutes, seconds, map.mapId);
+  }, [map.pokemonObjs]);
+  //Fetches map and sets the map data.
   useEffect(() => {
     getMap().then(async (result) => {
       const pokemonObjs = [];
@@ -46,6 +80,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
       }
 
       setMap({
+        ...map,
         imageUrl: result.imageURL,
         mapId: result.mapId,
         pokemons: result.pokemons,
@@ -96,7 +131,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
                 top: `${menu.pokemonListPosTop}`,
               }}
             >
-              <Timer />
+              <Timer seconds={seconds} minutes={minutes} />
               {map.pokemonObjs &&
                 map.pokemonObjs.map((pokemon) => {
                   return (
@@ -126,7 +161,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
     const minX = menu.imageX - menu.circleMarkRadius;
     const maxY = menu.circleMarkRadius + menu.imageY;
     const minY = menu.imageY - menu.circleMarkRadius;
-    console.log(`${x} > ${minX} && ${x} < ${maxX}`);
     if (x > minX && x < maxX && y > minY && y < maxY) {
       const newPokemonObjs = map.pokemonObjs.filter((poke) => {
         return poke.name !== pokemonName;
@@ -157,7 +191,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList }) => {
       pokemonListPosTop: isListOverFlow ? "-23vh" : "-2vh",
     });
   };
-
   if (isLoading) {
     return <LoadingScreen />;
   } else {
