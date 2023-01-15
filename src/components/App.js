@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getPokemon } from "../modules/AppFirebase";
 import Header from "./Header";
+import LeaderBoard from "./LeaderBoard";
 function App() {
   const [mapState, setMaps] = useState({
     mapList: [],
@@ -61,10 +62,8 @@ function App() {
   const submitUser = async (newUserName) => {
     let newUser;
     const userRef = doc(db, "users", newUserName.toLowerCase());
-    if (userRef) {
-      newUser = (await getDoc(userRef)).data();
-      console.log(newUser);
-    } else {
+    newUser = (await getDoc(userRef)).data();
+    if (newUser === undefined) {
       newUser = {
         name: newUserName,
       };
@@ -84,6 +83,8 @@ function App() {
       setUser(updatedUser);
     }
   };
+
+  const addLeaderboardToMap = () => {};
 
   return (
     <div className="App">
@@ -111,6 +112,12 @@ function App() {
                 updateUser={updateUser}
                 user={user}
               />
+            }
+          />
+          <Route
+            path="/leaderboard"
+            element={
+              <LeaderBoard maps={mapState.mapList} isLoading={loading} />
             }
           />
         </Routes>

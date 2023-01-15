@@ -1,0 +1,32 @@
+.leader-board-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1vw;
+}
+.LeaderBoardCard {
+  position: relative;
+}
+.leader-board-users {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 34, 0.678);
+}
+.map-img-lb {
+  height: 82vh;
+}
+.leader-board-users {
+}
+.leader-board-user {
+  font-size: 4vh;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr 1fr;
+  width: 100%;
+  color: white;
+}

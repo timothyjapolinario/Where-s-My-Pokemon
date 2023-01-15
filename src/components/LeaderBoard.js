@@ -1,7 +1,9 @@
-import { map } from "@firebase/util";
+import "./LeaderBoard.css";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../modules/AppFirebase";
+import LeaderBoardCard from "./LeaderBoardCard";
+import LoadingScreen from "./LoadingScreen";
 
 const sortByTime = (mapId, userArr = []) => {
   const prop = `map${mapId}Time`;
@@ -36,35 +38,56 @@ const getAllMapTime = (mapId, userArr) => {
 const createLeaderBoard = (mapId, userArr) => {
   const filteredUser = getAllMapTime(mapId, userArr);
   const timeSorted = sortByTime(mapId, filteredUser);
+
   return timeSorted;
 };
 
 const LeaderBoard = ({ maps }) => {
-  //console.log(maps);
+  const [isLoading, setLoading] = useState(true);
   const [allUsers, setAllUsers] = useState([]);
-  const [leaderBoard, setLeaderBoard] = useState({
-    mapOne: [],
-    mapTwo: [],
-    mapThree: [],
-  });
+  const [leaderBoard, setLeaderBoard] = useState([...maps]);
   useEffect(() => {
     fetchAllUsers().then((allUsers) => {
       setAllUsers(allUsers);
     });
-  }, []);
+    setLeaderBoard([...maps]);
+  }, [maps]);
 
   useEffect(() => {
-    setLeaderBoard({
-      mapOne: createLeaderBoard(1, allUsers),
-      mapTwo: createLeaderBoard(2, allUsers),
-      mapThree: createLeaderBoard(3, allUsers),
+    console.log(leaderBoard.length);
+    const mapsWithLeaderBoard = leaderBoard.map((mapObj) => {
+      return {
+        ...mapObj,
+        leaderBoard: createLeaderBoard(mapObj.mapId, allUsers),
+      };
     });
+
+    setLeaderBoard(mapsWithLeaderBoard);
+    if (mapsWithLeaderBoard.length > 0) {
+      setLoading(false);
+    }
   }, [allUsers]);
   useEffect(() => {
-    //console.log(leaderBoard);
+    console.log(leaderBoard);
   }, [leaderBoard]);
 
-  return <div></div>;
+  if (isLoading) {
+    return <LoadingScreen />;
+  } else {
+    return (
+      <div className="leader-board-list">
+        {leaderBoard.map((mapObj) => {
+          return (
+            <LeaderBoardCard
+              leaderBoardArr={mapObj.leaderBoard}
+              mapImgUrl={mapObj.imageURL}
+              mapId={mapObj.mapId}
+            />
+          );
+        })}
+      </div>
+    );
+  }
 };
 
 export default LeaderBoard;

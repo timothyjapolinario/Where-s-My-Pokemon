@@ -68,11 +68,11 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
       });
       setMenu({
         ...menu,
-        isOpen: false,
       });
     }
     updateUser(minutes, seconds, map.mapId);
   }, [map.pokemonObjs]);
+
   //Fetches map and sets the map data.
   useEffect(() => {
     getMap().then(async (result) => {
@@ -133,6 +133,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
               style={{
                 position: "absolute",
                 left: `${menu.listLocation}`,
+                right: "0",
                 top: `${menu.pokemonListPosTop}`,
               }}
             >
@@ -182,9 +183,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
     const imgElem = document.querySelector("#pokemon-map");
     const [px, py] = getNaturalHeightAndWidth(event);
     const isOnRight = imgElem.naturalWidth / 2 > px;
-    const isListOverFlow =
-      imgElem.naturalHeight - imgElem.naturalHeight * 0.08 < py;
-
     let menuPos;
 
     if (imgElem.naturalHeight - imgElem.naturalHeight * 0.08 < py) {
