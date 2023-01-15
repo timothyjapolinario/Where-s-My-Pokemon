@@ -4,7 +4,7 @@ import { db, app } from "../modules/AppFirebase";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import StartMenu from "./StartMenu";
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { getPokemon } from "../modules/AppFirebase";
 import Header from "./Header";
 import LeaderBoard from "./LeaderBoard";
@@ -88,7 +88,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <Routes>
           <Route
@@ -121,7 +121,7 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
