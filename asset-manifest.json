@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Where-s-My-Pokemon/static/css/main.cfe35192.css",
-    "main.js": "/Where-s-My-Pokemon/static/js/main.6c016cd7.js",
+    "main.css": "/Where-s-My-Pokemon/static/css/main.c9cfd3f8.css",
+    "main.js": "/Where-s-My-Pokemon/static/js/main.b4a060f0.js",
     "static/media/FredokaOne-Regular.ttf": "/Where-s-My-Pokemon/static/media/FredokaOne-Regular.4aea26dd6637dfac0fac.ttf",
     "static/media/pikachu-running.gif": "/Where-s-My-Pokemon/static/media/pikachu-running.176efa059e6c05942f55.gif",
     "index.html": "/Where-s-My-Pokemon/index.html",
-    "main.cfe35192.css.map": "/Where-s-My-Pokemon/static/css/main.cfe35192.css.map",
-    "main.6c016cd7.js.map": "/Where-s-My-Pokemon/static/js/main.6c016cd7.js.map"
+    "main.c9cfd3f8.css.map": "/Where-s-My-Pokemon/static/css/main.c9cfd3f8.css.map",
+    "main.b4a060f0.js.map": "/Where-s-My-Pokemon/static/js/main.b4a060f0.js.map"
   },
   "entrypoints": [
-    "static/css/main.cfe35192.css",
-    "static/js/main.6c016cd7.js"
+    "static/css/main.c9cfd3f8.css",
+    "static/js/main.b4a060f0.js"
   ]
 }
