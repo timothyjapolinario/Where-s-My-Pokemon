@@ -1,5 +1,6 @@
 #pokemon-map {
   width: 100%;
+  min-height: 100vh;
 }
 
 #menu {
@@ -27,6 +28,7 @@
 #pokemon-map-wrapper {
   position: relative;
   overflow: hidden;
+  overflow-x: scroll;
 }
 #menu-pokemon-list {
   height: 18vw;
@@ -46,4 +48,13 @@
 .menu-pokemon-img {
   width: 60px;
   height: 60px;
+}
+
+.menu-on-right {
+  left: 15vw;
+  position: "absolute";
+}
+.menu-on-left {
+  right: 15vw;
+  position: "absolute";
 }

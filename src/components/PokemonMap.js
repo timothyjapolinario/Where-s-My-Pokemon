@@ -130,10 +130,9 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
           <div id="menu-circle-mark">
             <div
               id="menu-pokemon-list"
+              className={menu.isOnRight ? "menu-on-right" : "menu-on-left"}
               style={{
                 position: "absolute",
-                left: `${menu.listLocation}`,
-                right: "0",
                 top: `${menu.pokemonListPosTop}`,
               }}
             >
@@ -203,6 +202,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
       listLocation: isOnRight ? "15vw" : "-15vw",
       circleMarkRadius: 60,
       pokemonListPosTop: menuPos,
+      isOnRight: isOnRight,
     });
   };
   if (isLoading) {
