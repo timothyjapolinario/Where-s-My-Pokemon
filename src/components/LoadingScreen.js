@@ -7,8 +7,9 @@ const LoadingScreen = () => {
       <div id="loading-middle" />
 
       <div id="loading-lower" />
-      <div id="circle-pokeball"></div>
-      <img src={pikachuRunning} alt="pikachu-running" id="running-pikachu" />
+      <div id="circle-pokeball">
+        <img src={pikachuRunning} alt="pikachu-running" id="running-pikachu" />
+      </div>
     </div>
   );
 };

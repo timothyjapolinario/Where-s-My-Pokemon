@@ -33,7 +33,7 @@
 #running-pikachu {
   position: absolute;
   z-index: 99999;
-  top: 25%;
+  top: 0;
   transform: translate(-50%, 0);
 
   height: 35vh;
