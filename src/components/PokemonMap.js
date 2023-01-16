@@ -62,6 +62,20 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   //When game is over
   useEffect(() => {
     if (map.pokemonObjs.length === 0) {
+      console.log(minutes);
+      let minString = minutes;
+      let secString = seconds;
+      if (minutes < 10) {
+        minString = "0" + minutes;
+      }
+      if (seconds < 10) {
+        secString = "0" + seconds;
+      }
+      if (minutes !== 0 || seconds !== 0) {
+        console.log("yaw ko na");
+        updateUser(minString, secString, map.mapId);
+      }
+
       setMap({
         ...map,
         isGameover: true,
@@ -69,16 +83,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
       setMenu({
         ...menu,
       });
-    }
-    let minString;
-    let secString;
-    if (minutes === 0) {
-      minString = "00";
-    } else if (seconds === 0) {
-      secString = "00";
-    }
-    if (minutes !== 0 && seconds !== 0) {
-      updateUser(minString, secString, map.mapId);
     }
   }, [map.pokemonObjs]);
 
