@@ -54,7 +54,6 @@ const LeaderBoard = ({ maps }) => {
   }, [maps]);
 
   useEffect(() => {
-    console.log(leaderBoard.length);
     const mapsWithLeaderBoard = leaderBoard.map((mapObj) => {
       return {
         ...mapObj,
@@ -67,9 +66,7 @@ const LeaderBoard = ({ maps }) => {
       setLoading(false);
     }
   }, [allUsers]);
-  useEffect(() => {
-    console.log(leaderBoard);
-  }, [leaderBoard]);
+  useEffect(() => {}, [leaderBoard]);
 
   if (isLoading) {
     return <LoadingScreen />;
