@@ -70,7 +70,16 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
         ...menu,
       });
     }
-    updateUser(minutes, seconds, map.mapId);
+    let minString;
+    let secString;
+    if (minutes === 0) {
+      minString = "00";
+    } else if (seconds === 0) {
+      secString = "00";
+    }
+    if (minutes !== 0 && seconds !== 0) {
+      updateUser(minString, secString, map.mapId);
+    }
   }, [map.pokemonObjs]);
 
   //Fetches map and sets the map data.

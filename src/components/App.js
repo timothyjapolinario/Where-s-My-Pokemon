@@ -72,7 +72,7 @@ function App() {
     setUser(newUser);
   };
   const updateUser = async (minutes, seconds, mapId) => {
-    if (user.name !== "") {
+    if (user.name !== "" && minutes !== "00" && seconds !== "00") {
       const map = "map" + mapId + "Time";
       const userRef = doc(db, "users", user.name.toLowerCase());
       const updatedUser = {
