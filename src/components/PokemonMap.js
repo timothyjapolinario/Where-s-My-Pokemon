@@ -149,6 +149,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
                 map.pokemonObjs.map((pokemon) => {
                   return (
                     <div
+                      key={pokemon.name + "-menu"}
                       onClick={() => {
                         checkLocation(pokemon.x, pokemon.y, pokemon.name);
                       }}

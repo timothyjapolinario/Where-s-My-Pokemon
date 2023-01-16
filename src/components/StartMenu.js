@@ -25,6 +25,7 @@ const StartMenu = ({ maps, selectMap, isLoading, user, submitUser }) => {
           {maps.map((map) => {
             return (
               <MapCard
+                key={`map${map.mapId}`}
                 mapId={map.mapId}
                 mapImage={map.imageURL}
                 pokemonList={map.pokemonObjs}
