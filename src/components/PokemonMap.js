@@ -32,7 +32,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
       if (!map.isGameover && user.name !== "") {
         if (seconds < 60) {
           setSeconds(seconds + 1);
-          console.log("timer");
         } else {
           setSeconds(0);
           setMinutes(minutes + 1);
@@ -62,7 +61,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   //When game is over
   useEffect(() => {
     if (map.pokemonObjs.length === 0) {
-      console.log(minutes);
       let minString = minutes;
       let secString = seconds;
       if (minutes < 10) {
@@ -72,7 +70,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
         secString = "0" + seconds;
       }
       if (minutes !== 0 || seconds !== 0) {
-        console.log("yaw ko na");
         updateUser(minString, secString, map.mapId);
       }
 
@@ -127,8 +124,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
     const ih = imgElem.naturalHeight;
     const px = (x / cw) * iw;
     const py = (y / ch) * ih;
-    //console.log(`pixel : ${px}, ${py}`);
-    //console.log(ih, py);
     return [px, py];
   };
   const renderMenu = () => {
@@ -187,8 +182,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
         ...map,
         pokemonObjs: newPokemonObjs,
       });
-    } else {
-      console.log("Outside circle!");
     }
   };
   const openMenu = (event) => {
@@ -200,7 +193,6 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
     if (imgElem.naturalHeight - imgElem.naturalHeight * 0.08 < py) {
       menuPos = "-23vh";
     } else if (py < imgElem.naturalHeight * 0.05) {
-      console.log(py);
       menuPos = "20vh";
     } else {
       menuPos = "-2vh";

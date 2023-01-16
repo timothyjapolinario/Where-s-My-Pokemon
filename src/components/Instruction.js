@@ -27,7 +27,6 @@ const Instruction = ({ closeInstruction }) => {
       <div
         className="button-close-instruction"
         onClick={() => {
-          console.log("???");
           closeInstruction();
         }}
       >
