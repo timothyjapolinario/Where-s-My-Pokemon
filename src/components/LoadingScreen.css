@@ -21,14 +21,14 @@
 #circle-pokeball {
   background-color: white;
   border-radius: 100%;
-  height: 40vh;
-  width: 30vw;
+  height: 40%;
+  width: 30%;
   border: 3vw solid black;
 
   position: absolute;
   z-index: 9999;
   top: 25%;
-  transform: translate(90%, 0);
+  left: 32%;
 }
 #running-pikachu {
   position: absolute;
