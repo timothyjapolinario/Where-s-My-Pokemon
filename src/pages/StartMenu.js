@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Instruction from "./Instruction";
 import LoadingScreen from "./LoadingScreen";
-import MapCard from "./MapCard";
+import MapCard from "../components/MapCard";
 import "./StartMenu.css";
-import User from "./User";
+import User from "../components/User";
 const StartMenu = ({ maps, selectMap, isLoading, user, submitUser }) => {
   const [isInstruction, setInstruction] = useState(true);
   if (isLoading) {

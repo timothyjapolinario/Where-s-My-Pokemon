@@ -2,7 +2,7 @@ import "./LeaderBoard.css";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../modules/AppFirebase";
-import LeaderBoardCard from "./LeaderBoardCard";
+import LeaderBoardCard from "../components/LeaderBoardCard";
 import LoadingScreen from "./LoadingScreen";
 
 const sortByTime = (mapId, userArr = []) => {

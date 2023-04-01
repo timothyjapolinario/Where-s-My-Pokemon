@@ -1,4 +1,4 @@
-import PreviewMenu from "./PreviewMenu";
+import PreviewMenu from "../pages/PreviewMenu";
 import { useState } from "react";
 const MapCard = ({ mapId, mapImage, pokemonList }) => {
   const [previewMenuState, setPreviewMenu] = useState(false);

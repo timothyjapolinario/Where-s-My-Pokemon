@@ -1,13 +1,13 @@
 import "./App.css";
-import PokemonMap from "./PokemonMap";
+import PokemonMap from "../pages/PokemonMap";
 import { db } from "../modules/AppFirebase";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-import StartMenu from "./StartMenu";
+import StartMenu from "../pages/StartMenu";
 import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { getPokemon } from "../modules/AppFirebase";
 import Header from "./Header";
-import LeaderBoard from "./LeaderBoard";
+import LeaderBoard from "../pages/LeaderBoard";
 function App() {
   const [mapState, setMaps] = useState({
     mapList: [],

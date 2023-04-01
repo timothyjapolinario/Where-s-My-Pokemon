@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import "./PokemonMap.css";
 import { db, getPokemon } from "../modules/AppFirebase";
 import LoadingScreen from "./LoadingScreen";
-import Timer from "./Timer";
-import EndScreen from "./EndScreen";
+import Timer from "../components/Timer";
+import EndScreen from "../pages/EndScreen";
 const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   const { mapId } = useParams();
   const [isLoading, setLoading] = useState(true);
