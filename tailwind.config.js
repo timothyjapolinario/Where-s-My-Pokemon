@@ -2,6 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    extend: {
+      backgroundImage: {
+        "retro-blue-pattern": "url('./assets/bg.webp')",
+      },
+    },
     screens: {
       sm: "640px",
       // => @media (min-width: 640px) { ... }

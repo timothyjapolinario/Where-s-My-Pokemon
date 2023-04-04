@@ -20,7 +20,7 @@ const User = ({ submitUser }) => {
           }}
           id="user-submit-button"
         >
-          Submit
+          Play!
         </button>
       </form>
     </div>

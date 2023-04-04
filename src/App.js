@@ -1,13 +1,13 @@
 import "./App.css";
-import PokemonMap from "../pages/PokemonMap";
-import { db } from "../modules/AppFirebase";
+import PokemonMap from "./pages/PokemonMap";
+import { db } from "./modules/AppFirebase";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-import StartMenu from "../pages/StartMenu";
+import StartMenu from "./pages/StartMenu";
 import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { getPokemon } from "../modules/AppFirebase";
-import Header from "./Header";
-import LeaderBoard from "../pages/LeaderBoard";
+import { getPokemon } from "./modules/AppFirebase";
+import Header from "./components/Header";
+import LeaderBoard from "./pages/LeaderBoard";
 function App() {
   const [mapState, setMaps] = useState({
     mapList: [],
@@ -85,9 +85,8 @@ function App() {
   const addLeaderboardToMap = () => {};
 
   return (
-    <div className="App">
+    <div className="App w-screen h-screen bg-[url('../public/bg.webp')] bg-cover">
       <HashRouter>
-        <Header />
         <Routes>
           <Route
             path="/"
