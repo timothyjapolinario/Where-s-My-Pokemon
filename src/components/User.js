@@ -1,18 +1,22 @@
 import "./User.css";
 const User = ({ submitUser }) => {
   return (
-    <div id="user-name-form-wrapper">
+    <div>
       <form
         id="user-name-form"
+        className="flex flex-col bg-[#1713ff] p-[5vw] gap-[5vh] rounded-[30px] bg-opacity-70"
         onSubmit={(e) => {
           e.preventDefault();
           submitUser(document.getElementById("user-name-input").value);
         }}
       >
-        <label htmlFor="user-name-input" id="user-name-input-label">
+        <label
+          htmlFor="user-name-input"
+          className="text-[2rem] lg:text-[8rem] text-white"
+        >
           UserName
         </label>
-        <input id="user-name-input" />
+        <input className="text-[1rem] lg:text-[4rem]" />
         <button
           type="button"
           onClick={() => {

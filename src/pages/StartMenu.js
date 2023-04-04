@@ -13,15 +13,16 @@ const StartMenu = ({ maps, selectMap, isLoading, user, submitUser }) => {
   } else {
     return (
       <div className="start-menu-content w-full h-full flex items-center flex-col">
-        <div className="relative w-full mb-[200px]">
-          <img
-            src={pokemonBanner}
-            className="w-[300px] absolute top-[-90px] left-[9%]"
-          />
-          <img
-            src={titleBanner}
-            className="w-[300px] absolute top-[120px] left-[9%]"
-          />
+        <div className="relative w-full mb-[200px] md:mb-[30vh] flex flex-col justify-center items-center">
+          <div className="relative w-[300px] md:w-[1000px]">
+            <img
+              src={pokemonBanner}
+              className="w-[300px] absolute top-[-90px] md:w-[1000px]"
+            />
+          </div>
+          <div className="relative w-[300px] md:w-[1000px]">
+            <img src={titleBanner} className=" absolute top-[120px]" />
+          </div>
         </div>
         {!user.name && <User submitUser={submitUser} />}
       </div>
