@@ -85,7 +85,7 @@ function App() {
   const addLeaderboardToMap = () => {};
 
   return (
-    <div className="App w-screen h-screen bg-[url('../public/bg.webp')] bg-cover">
+    <div className="App w-screen h-full bg-[url('../public/bg.webp')] bg-cover bg-fixed">
       <HashRouter>
         <Routes>
           <Route
