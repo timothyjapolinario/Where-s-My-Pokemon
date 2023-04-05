@@ -11,10 +11,11 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   const [isLoading, setLoading] = useState(true);
   const [menu, setMenu] = useState({
     isOpen: true,
-    imageX: 0,
-    imageY: 0,
-    menuX: 0,
-    menuY: 0,
+    imageX: 1,
+    imageY: 1,
+    menuX: 1,
+    menuY: 1,
+    isOnRight: true,
   });
   const [map, setMap] = useState({
     imageUrl: "",
@@ -204,7 +205,7 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
       imageX: px,
       imageY: py,
       menuX: event.pageX - window.innerWidth / 15,
-      menuY: event.pageY - 100 - window.innerWidth / 15,
+      menuY: event.pageY - window.innerWidth / 15,
       listLocation: isOnRight ? "15vw" : "-15vw",
       circleMarkRadius: 60,
       pokemonListPosTop: menuPos,
