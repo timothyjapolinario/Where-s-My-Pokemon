@@ -4,8 +4,9 @@ import LoadingScreen from "./LoadingScreen";
 import MapCard from "../components/MapCard";
 import "./StartMenu.css";
 import User from "../components/User";
-import pokemonBanner from "../assets/pokemon_banner.webp";
-import titleBanner from "../assets/title.webp";
+
+import Banner from "../components/Banner";
+import MapCardList from "../components/MapCardList";
 const StartMenu = ({ maps, selectMap, isLoading, user, submitUser }) => {
   const [isInstruction, setInstruction] = useState(true);
   if (isLoading) {
@@ -13,18 +14,9 @@ const StartMenu = ({ maps, selectMap, isLoading, user, submitUser }) => {
   } else {
     return (
       <div className="start-menu-content w-full h-full flex items-center flex-col">
-        <div className="relative w-full mb-[200px] md:mb-[30vh] flex flex-col justify-center items-center">
-          <div className="relative w-[300px] md:w-[1000px]">
-            <img
-              src={pokemonBanner}
-              className="w-[300px] absolute top-[-90px] md:w-[1000px]"
-            />
-          </div>
-          <div className="relative w-[300px] md:w-[1000px]">
-            <img src={titleBanner} className=" absolute top-[120px]" />
-          </div>
-        </div>
+        <Banner />
         {!user.name && <User submitUser={submitUser} />}
+        {user.name && <MapCardList maps={maps} selectMap={selectMap} />}
       </div>
     );
   }
