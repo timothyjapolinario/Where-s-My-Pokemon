@@ -6,6 +6,7 @@ import { db, getPokemon } from "../modules/AppFirebase";
 import LoadingScreen from "./LoadingScreen";
 import Timer from "../components/Timer";
 import EndScreen from "../pages/EndScreen";
+import clickLogo from "../assets/click-logo.webp";
 const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
   const { mapId } = useParams();
   const [isLoading, setLoading] = useState(true);
@@ -154,12 +155,17 @@ const PokemonMap = ({ pokemonMapUrl, pokemonList, updateUser, user }) => {
                       onClick={() => {
                         checkLocation(pokemon.x, pokemon.y, pokemon.name);
                       }}
+                      className="relative"
                     >
                       <div className="menu-pokemon-name"> {pokemon.name}</div>
                       <img
                         src={pokemon.imageUrl}
                         alt="pokeimg"
                         className="menu-pokemon-img"
+                      />
+                      <img
+                        src={clickLogo}
+                        className="absolute top-[60%] w-[20px] md:w-[40px] left-[50%]"
                       />
                     </div>
                   );
