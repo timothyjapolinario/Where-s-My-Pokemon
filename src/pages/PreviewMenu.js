@@ -18,7 +18,7 @@ const PreviewMenu = ({
           return (
             <div key={pokemon.name} className="preview-pokemon-info">
               <div>{pokemon.name}</div>
-              <img src={pokemon.imageUrl} id="preview-pokemon-image" />
+              <img src={pokemon.imageUrl} class="preview-pokemon-image" />
             </div>
           );
         })}

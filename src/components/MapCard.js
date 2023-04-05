@@ -1,4 +1,5 @@
 import PreviewMenu from "../pages/PreviewMenu";
+import clickLogo from "../assets/click-logo.webp";
 import { useState } from "react";
 const MapCard = ({ mapId, mapImage, pokemonList }) => {
   const [previewMenuState, setPreviewMenu] = useState(false);
@@ -6,7 +7,7 @@ const MapCard = ({ mapId, mapImage, pokemonList }) => {
     setPreviewMenu(!previewMenuState);
   };
   return (
-    <div className="map-preview">
+    <div className="map-preview relative">
       <div>
         <PreviewMenu
           previewMenuState={previewMenuState}
@@ -19,6 +20,12 @@ const MapCard = ({ mapId, mapImage, pokemonList }) => {
           src={mapImage}
           alt="pokemonMap-preview"
           onClick={togglePrevMenu}
+        />
+        <img
+          src={clickLogo}
+          className={`absolute top-[50%] w-[70px] left-[40%] ${
+            previewMenuState ? "hidden" : "block"
+          }`}
         />
       </div>
     </div>
