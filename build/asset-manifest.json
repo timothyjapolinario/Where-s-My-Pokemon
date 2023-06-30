@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/Where-s-My-Pokemon/static/css/main.8d8f27fe.css",
-    "main.js": "/Where-s-My-Pokemon/static/js/main.2e1824aa.js",
+    "main.css": "/Where-s-My-Pokemon/static/css/main.396154f7.css",
+    "main.js": "/Where-s-My-Pokemon/static/js/main.fd4e186d.js",
+    "static/media/pokemon_banner.webp": "/Where-s-My-Pokemon/static/media/pokemon_banner.7c55e3791fed281d4ea8.webp",
+    "static/media/bg.webp": "/Where-s-My-Pokemon/static/media/bg.486c9da9f17a0d463922.webp",
     "static/media/FredokaOne-Regular.ttf": "/Where-s-My-Pokemon/static/media/FredokaOne-Regular.4aea26dd6637dfac0fac.ttf",
     "static/media/pikachu-running.gif": "/Where-s-My-Pokemon/static/media/pikachu-running.176efa059e6c05942f55.gif",
+    "static/media/title.webp": "/Where-s-My-Pokemon/static/media/title.a05f6dbf01cb51ce7669.webp",
+    "static/media/click-logo.webp": "/Where-s-My-Pokemon/static/media/click-logo.31d184c2911e5b20c31f.webp",
     "index.html": "/Where-s-My-Pokemon/index.html",
-    "main.8d8f27fe.css.map": "/Where-s-My-Pokemon/static/css/main.8d8f27fe.css.map",
-    "main.2e1824aa.js.map": "/Where-s-My-Pokemon/static/js/main.2e1824aa.js.map"
+    "main.396154f7.css.map": "/Where-s-My-Pokemon/static/css/main.396154f7.css.map",
+    "main.fd4e186d.js.map": "/Where-s-My-Pokemon/static/js/main.fd4e186d.js.map"
   },
   "entrypoints": [
-    "static/css/main.8d8f27fe.css",
-    "static/js/main.2e1824aa.js"
+    "static/css/main.396154f7.css",
+    "static/js/main.fd4e186d.js"
   ]
 }

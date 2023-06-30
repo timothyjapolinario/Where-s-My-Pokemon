@@ -28,7 +28,6 @@
 #pokemon-map-wrapper {
   position: relative;
   overflow: hidden;
-  overflow-x: scroll;
 }
 #menu-pokemon-list {
   height: 18vw;

@@ -6,7 +6,6 @@ import StartMenu from "./pages/StartMenu";
 import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { getPokemon } from "./modules/AppFirebase";
-import Header from "./components/Header";
 import LeaderBoard from "./pages/LeaderBoard";
 function App() {
   const [mapState, setMaps] = useState({
@@ -85,7 +84,7 @@ function App() {
   const addLeaderboardToMap = () => {};
 
   return (
-    <div className="App w-screen min-h-[100vh] bg-[url('../public/bg.webp')] bg-cover bg-fixed">
+    <div className="App max-w-[100vw] min-h-[100vh] bg-[url('../public/bg.webp')] bg-cover bg-fixed">
       <HashRouter>
         <Routes>
           <Route
