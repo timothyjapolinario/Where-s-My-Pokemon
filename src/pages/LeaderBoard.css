@@ -1,5 +1,4 @@
 .leader-board-list {
-  margin-top: 1vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -10,13 +9,14 @@
 }
 .leader-board-users {
   padding-top: 6vh;
+
   display: flex;
   align-items: center;
   flex-direction: column;
   position: absolute;
   top: 0;
   left: 0;
-  height: 76vh;
+  height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 34, 0.678);
 }

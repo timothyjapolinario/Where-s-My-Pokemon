@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { db } from "../modules/AppFirebase";
 import LeaderBoardCard from "../components/LeaderBoardCard";
 import LoadingScreen from "./LoadingScreen";
+import Banner from "../components/Banner";
 
 const sortByTime = (mapId, userArr = []) => {
   const prop = `map${mapId}Time`;
@@ -37,7 +38,7 @@ const getAllMapTime = (mapId, userArr) => {
 
 const createLeaderBoard = (mapId, userArr) => {
   const filteredUser = getAllMapTime(mapId, userArr);
-  const timeSorted = sortByTime(mapId, filteredUser);
+  const timeSorted = sortByTime(mapId, filteredUser).splice(0, 10);
 
   return timeSorted;
 };
@@ -73,6 +74,7 @@ const LeaderBoard = ({ maps }) => {
   } else {
     return (
       <div className="leader-board-list">
+        <Banner />
         {leaderBoard.map((mapObj) => {
           return (
             <LeaderBoardCard
